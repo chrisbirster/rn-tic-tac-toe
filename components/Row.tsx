@@ -4,6 +4,7 @@ import Square from "./Square";
 function renderSquare(handlePress: (i: number) => void, index: number, squares: Array<string>) {
     return (
         <Square
+            key={index}
             text={squares[index]}
             index={index}
             handlePress={handlePress}
