@@ -3,7 +3,10 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 export function Square({text}: {text: string}) {
   return (
-    <Pressable style={styles.square}>
+    <Pressable
+      style={styles.square}
+      onPress={() => console.log(`pressed: ${text}`)}
+    >
       <View>
         <Text style={styles.squareText}>{text}</Text>
       </View>
