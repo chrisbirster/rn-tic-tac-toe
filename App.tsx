@@ -1,12 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import Board from './components/Board';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import GameScreen from './screens/Game';
 
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <>
-      <Board />
-      <StatusBar style="auto" />
-    </>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Game" component={GameScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
