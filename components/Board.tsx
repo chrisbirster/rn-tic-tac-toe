@@ -91,20 +91,25 @@ export default function Board({ navigation }: { navigation: any }) {
     }
 
     return (
-        <View style={styles.board}>
-            <Row handlePress={handlePress} ids={[0, 1, 2]} squares={squares} />
-            <Row handlePress={handlePress} ids={[3, 4, 5]} squares={squares} />
-            <Row handlePress={handlePress} ids={[6, 7, 8]} squares={squares} />
+        <>
+            <View style={styles.board}>
+                <Row handlePress={handlePress} ids={[0, 1, 2]} squares={squares} />
+                <Row handlePress={handlePress} ids={[3, 4, 5]} squares={squares} />
+                <Row handlePress={handlePress} ids={[6, 7, 8]} squares={squares} />
+            </View>
             <BoardHistory history={history} setHistory={handleHistory} />
-        </View>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
     board: {
-        flex: 1,
-        backgroundColor: '#fff',
+        flex: 0.6,
         alignItems: 'center',
         justifyContent: 'center',
     },
+    history: {
+        flex: 0.4,
+        width: '100%',
+    }
 })

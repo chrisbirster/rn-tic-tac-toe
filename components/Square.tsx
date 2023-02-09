@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native"
+import Colors from "../constants/colors"
 
 export default function Square({ text, index, handlePress }: {
     text: string, index: number,
@@ -19,13 +20,18 @@ export default function Square({ text, index, handlePress }: {
 const styles = StyleSheet.create({
     square: {
         justifyContent: 'center',
+        backgroundColor: Colors.secondary500,
         borderWidth: 1,
+        borderColor: Colors.primary500,
         width: 80,
         height: 80,
+        margin: 2,
+        borderRadius: 10,
       },
       squareText: {
         fontSize: 60,
         fontWeight: 'bold',
         textAlign: 'center',
+        color: Colors.primary600,
     },
 })
