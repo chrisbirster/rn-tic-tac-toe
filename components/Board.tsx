@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Row from "./Row";
+import type { HistoryData } from "../types";
+import BoardHistory from "./BoardHistory";
+
+const initialData: HistoryData = { id: 0, move: 'Go to game start', xIsNext: true, snapshot: Array<string>(9).fill("") }
 
 export default function Board() {
     const [squares, setSquares] = useState<Array<string>>(Array<string>(9).fill(''));
+    const [history, setHistory] = useState<Array<HistoryData>>([initialData])
     const [xIsNext, setXIsNext] = useState(true);
 
     const handlePlayer = () => xIsNext ? 'X' : 'O';
@@ -38,6 +43,7 @@ export default function Board() {
         return true;
     }
 
+
     const handlePress = (i: number) => {
         if (squares[i]) {
             return;
@@ -49,7 +55,9 @@ export default function Board() {
         // set the square to the current player
         squaresCopy[i] = handlePlayer();
 
-        // set the squares state to the copy
+        // set the history state to the current environment
+        setHistory([...history, { id: history.length, move: `Go to move #${history.length}`, xIsNext: !xIsNext, snapshot: squaresCopy }])
+
         setSquares(squaresCopy);
 
         // set the next player
@@ -68,11 +76,26 @@ export default function Board() {
 
     }
 
+    const handleHistory = (id: number) => {
+        const historyCopy = history.slice();
+        console.log("historyCopy: ", historyCopy)
+        const historyData = historyCopy.slice(0, id + 1);
+        const currentMove = historyData.find((move) => move.id === id);
+        if (!currentMove) {
+            return;
+        }
+        console.log("historyData: ", historyData)
+        setHistory(historyData);
+        setXIsNext(currentMove.xIsNext);
+        setSquares(currentMove.snapshot);
+    }
+
     return (
         <View style={styles.board}>
             <Row handlePress={handlePress} ids={[0, 1, 2]} squares={squares} />
             <Row handlePress={handlePress} ids={[3, 4, 5]} squares={squares} />
             <Row handlePress={handlePress} ids={[6, 7, 8]} squares={squares} />
+            <BoardHistory history={history} setHistory={handleHistory} />
         </View>
     );
 }
