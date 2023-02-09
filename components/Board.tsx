@@ -6,7 +6,7 @@ import BoardHistory from "./BoardHistory";
 
 const initialData: HistoryData = { id: 0, move: 'Go to game start', xIsNext: true, snapshot: Array<string>(9).fill("") }
 
-export default function Board() {
+export default function Board({ navigation }: { navigation: any }) {
     const [squares, setSquares] = useState<Array<string>>(Array<string>(9).fill(''));
     const [history, setHistory] = useState<Array<HistoryData>>([initialData])
     const [xIsNext, setXIsNext] = useState(true);
@@ -66,12 +66,12 @@ export default function Board() {
         const winnerMaybe = checkWinner(squaresCopy);
         if (winnerMaybe) {
             console.log(`Winner is ${winnerMaybe}`);
-            return;
+            navigation.navigate('End', { winner: winnerMaybe });
         }
 
         if (checkDraw(squaresCopy)) {
             console.log('Draw');
-            return;
+            navigation.navigate('End', { winner: null });
         }
 
     }
